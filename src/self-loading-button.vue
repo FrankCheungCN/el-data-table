@@ -13,6 +13,13 @@ export default {
   name: 'ElLoadingButton',
   props: {
     /**
+     * 按钮是否有 loading 状态的变化
+     */
+    hasLoading: {
+      type: Boolean,
+      default: true
+    },
+    /**
      * 如果没有这个props，则通过attrs传`type`时，会导致el-button的`native-type`也被改变
      */
     type: String,
@@ -44,7 +51,7 @@ export default {
     handleClick() {
       if (!this.click) return
 
-      this.loading = true
+      this.hasLoading && (this.loading = true)
       Promise.resolve(this.click(this.params))
         .then(flag => {
           if (flag === false) return
